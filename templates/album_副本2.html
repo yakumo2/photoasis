@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ album_name }}</title>
+    <style>
+        .masonry {
+            column-count: 4;
+            column-gap: 20px;
+            padding: 20px;
+        }
+        .item {
+            display: inline-block;
+            margin-bottom: 20px;
+            width: calc(25% - 20px); /* 每列占比，减去间距 */
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>{{ album_name }}</h1>
+    
+    <div class="masonry">
+        {% for photo in photos %}
+        <div class="item">
+            <img src="/photo/{{ album_name }}/{{ photo }}" alt="{{ photo }}">
+        </div>
+        {% endfor %}
+    </div>
+
+</body>
+</html>

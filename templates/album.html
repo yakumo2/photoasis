@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ album_name }}</title>
+    <style>
+        /* CSS for Pinterest-style layout */
+        .masonry {
+            column-count: 4; /* 初始列数 */
+            column-gap: 20px; /* 列间隙 */
+        }
+        .item {
+            display: inline-block;
+            margin-bottom: 20px; /* 图片间隙 */
+            width: 100%; /* 图片宽度，占据一整列 */
+        }
+        .item img {
+            width: 100%; /* 图片宽度，填满整个容器 */
+            display: block;
+        }
+         /* 媒体查询 */
+        @media only screen and (max-width: 800px) {
+            .masonry {
+                column-count: 3; /* 网页窄时列数为2 */
+                column-gap: 10px; /* 列间隙 */
+            }
+            .item {
+            
+            margin-bottom: 10px; /* 图片间隙 */
+         
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+   <h1>{{ album_name }}</h1>
+    <div class="masonry">
+        {% for photo in photos %}
+        <div class="item">
+            <img src="/photo/{{ album_name }}/{{ photo }}" alt="{{ photo }}">
+        </div>
+        {% endfor %}
+    </div>
+    <div class="pagination">
+        {% for p in range(1, num_pages + 1) %}
+        <a href="/album/{{ album_name }}?page={{ p }}" {% if p == page %}style="font-weight: bold"{% endif %}>{{ p }}</a>
+        {% endfor %}
+    </div>
+
+</body>
+</html>
