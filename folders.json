@@ -1,0 +1,14 @@
+[
+    {
+        "id": 0,
+        "path": "0_default",
+        "name": "default",
+        "display": false
+    },
+    {
+        "id": 1,
+        "path": "01_MyFirstAlbum",
+        "name": "01_MyFirstAlbum",
+        "display": true
+    }
+]

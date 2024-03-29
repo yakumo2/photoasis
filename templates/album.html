@@ -5,15 +5,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ album_name }}</title>
     <style>
-        /* CSS for Pinterest-style layout */
+        /* 设置链接样式 */
+        a {
+            color: white; /* 设置链接文字颜色为白色 */
+            text-decoration: none; /* 去除链接下划线 */
+        }
+
+        /* 设置点击过的链接样式 */
+        a:visited {
+            color: white; /* 设置点击过的链接文字颜色为白色 */
+        }
+
+
+        /* 顶部导航条样式 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px; /* 导航栏高度 */
+            background-color: rgba(0, 0, 0, 0.5); /* 半透明背景色 */
+            color: white; /* 字体颜色 */
+            display: flex;
+            align-items: center;
+            padding: 0 20px; /* 左右内边距 */
+        }
+
+        .navbar span {
+            margin-right: auto; /* 将 {{ name }} 推到最左侧 */
+        }
+
+        .navbar a {
+            margin-right: 40px;
+        }
+
+
+        /* 底部导航条样式 */
+        .pagination-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色背景 */
+            padding: 10px;
+            color: white;
+            text-align: center;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        /* 原始样式 */
         .masonry {
             column-count: 4; /* 初始列数 */
-            column-gap: 20px; /* 列间隙 */
+            column-gap: 5px; /* 列间隙 */
+            max-width: 1200px; /* 最大宽度 */
+            margin: 60px auto 50px auto; /* 居中显示，并留出导航条位置 */
         }
         .item {
             display: inline-block;
-            margin-bottom: 20px; /* 图片间隙 */
+            margin-bottom: 1px; /* 图片间隙 */
             width: 100%; /* 图片宽度，占据一整列 */
+
         }
         .item img {
             width: 100%; /* 图片宽度，填满整个容器 */
@@ -23,32 +77,108 @@
         @media only screen and (max-width: 800px) {
             .masonry {
                 column-count: 3; /* 网页窄时列数为2 */
-                column-gap: 10px; /* 列间隙 */
+                column-gap: 5px; /* 列间隙 */
             }
             .item {
-            
-            margin-bottom: 10px; /* 图片间隙 */
-         
+                margin-bottom: 0px; /* 图片间隙 */
             }
         }
 
+        /* Lightbox Styles */
+        #lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* 背景颜色为半透明黑色 */
+            z-index: 9999;
+            text-align: center;
+            display: flex;
+            justify-content: center; /* 水平居中 */
+            align-items: center; /* 垂直居中 */
+
+        }
+
+        .lightbox-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding-bottom: 100px; /* 下方留白更高 */
+        }
+
+        .lightbox-img {
+            max-width: 90%;
+            max-height: 90%;
+            border: 10px solid white; /* 添加白色边框 */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* 添加阴影 */
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #fff;
+            font-size: 30px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
-   <h1>{{ album_name }}</h1>
+    <!-- 顶部导航条 -->
+    <div class="navbar">
+        <span>{{ name }}</span>
+        <a href="/">Home</a>
+    </div>
+
     <div class="masonry">
         {% for photo in photos %}
         <div class="item">
-            <img src="/photo/{{ album_name }}/{{ photo }}" alt="{{ photo }}">
+            <img src="/{{ path }}/{{ album_name }}/{{ photo }}" alt="{{ photo }}" onclick="openLightbox('/{{ big }}/{{ album_name }}/{{ photo }}')">
         </div>
         {% endfor %}
     </div>
-    <div class="pagination">
-        {% for p in range(1, num_pages + 1) %}
-        <a href="/album/{{ album_name }}?page={{ p }}" {% if p == page %}style="font-weight: bold"{% endif %}>{{ p }}</a>
-        {% endfor %}
+
+    <!-- 底部导航条 -->
+    <div class="pagination-bar">
+        <div>
+            {% if page > 1 %}
+                <a href="/album/{{ album_name }}?page={{ page - 1 }}">Previous</a>
+            {% endif %}
+        </div>
+        <span>Page {{ page }}</span>
+        <div>
+            
+            {% if page < num_pages %}
+                <a href="/album/{{ album_name }}?page={{ page + 1 }}">Next</a>
+            {% endif %}
+        </div>
     </div>
 
+    <!-- 悬浮层 -->
+    <div id="lightbox">
+        <span class="close" onclick="closeLightbox()">&times;</span>
+        <div class="lightbox-content">
+            <img src="" alt="Lightbox Image" class="lightbox-img" id="lightbox-img">
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById('lightbox').style.display = 'none';
+        });
+
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').style.display = 'block';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+    </script>
 </body>
 </html>

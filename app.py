@@ -1,49 +1,23 @@
-from flask import Flask, render_template, abort, request
+from flask import Flask, render_template, abort, request, redirect, url_for, jsonify, Blueprint
+import os
+import json
+import re
+from admin import admin_bp
+from index import index_bp
+from album import album_bp
+import global_variables
+import secrets
 
 app = Flask(__name__, static_folder='photo')
+app.secret_key = secrets.token_hex(16)
 
-# Helper function to get list of albums
-def get_albums():
-    import os
-    albums = []
-    for root, dirs, files in os.walk('photo'):
-        albums.extend(dirs)
-        break  # only top-level directories
-    return albums
+app.register_blueprint(admin_bp, url_prefix='/admin')
+app.register_blueprint(album_bp, url_prefix='/album')
+app.register_blueprint(index_bp)
 
-# Helper function to get list of photos in an album
-def get_photos(album_name):
-    import os
-    photos = []
-    album_path = os.path.join('photo', album_name)
-    if not os.path.exists(album_path):
-        abort(404)
-    for root, dirs, files in os.walk(album_path):
-        for file in files:
-            if file.endswith(('jpg', 'jpeg', 'png', 'gif')):
-                photos.append(file)
-    return photos
 
-# Route for index page
-@app.route('/')
-def index():
-    albums = get_albums()
-    return render_template('index.html', albums=albums)
 
-# Route for album page
-@app.route('/album/<album_name>')
-def album(album_name):
-    page = int(request.args.get('page', 1))
-    photos = get_photos(album_name)
-    num_photos = len(photos)
-    per_page = 20
-    num_pages = (num_photos + per_page - 1) // per_page
-    if page < 1 or page > num_pages:
-        abort(404)
-    start_idx = (page - 1) * per_page
-    end_idx = min(start_idx + per_page, num_photos)
-    paginated_photos = photos[start_idx:end_idx]
-    return render_template('album.html', album_name=album_name, photos=paginated_photos, page=page, num_pages=num_pages)
+if __name__ == "__main__":
+    app.run(debug=False, host="0.0.0.0", port=15001)
 
-if __name__ == '__main__':
-    app.run(port=15001)
+

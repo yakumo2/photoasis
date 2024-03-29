@@ -9,7 +9,7 @@
     <h1>Albums</h1>
     <ul>
         {% for album in albums %}
-        <li><a href="/album/{{ album }}">{{ album }}</a></li>
+        <li><a href="/album/{{ album['path'] }}">{{ album['name'] }}</a></li>
         {% endfor %}
     </ul>
 </body>

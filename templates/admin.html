@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        form {
+            display: inline-block;
+        }
+        .sort-btn {
+            margin-bottom: 10px;
+        }
+    </style>
+    <script>
+        function toggleDisplay(id) {
+            fetch(`/admin/toggle_display/${id}`, {
+                method: 'POST',
+                body: JSON.stringify({ id: id }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    console.error('Toggle display failed.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+        function scanFolders() {
+            fetch("/admin/scan_folders", {
+                method: "POST"
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to scan folders');
+                }
+                location.reload();  // Refresh the page after scanning folders
+            })
+            .catch(error => {
+                console.error('Error:', error.message);
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Admin Panel</h1>
+    <form id="scan-form" method="POST">
+        <button class="sort-btn" type="button" onclick="scanFolders()">扫描文件夹</button>
+    </form>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Path</th>
+            <th>Name</th>
+            <th>Display</th>
+            <th>Action</th>
+        </tr>
+        {% for folder in folders %}
+        {% if folder['display'] %}
+        <tr style="background-color: limegreen;">
+        {% else %}
+        <tr>
+        {% endif %}
+            <td>{{ folder['id'] }}</td>
+            <td>{{ folder['path'] }}</td>
+            <td>{{ folder['name'] }}</td>
+            <td>{{ folder['display'] }}</td>
+            <td>
+                <button onclick="toggleDisplay('{{ folder['id'] }}')">Toggle Display</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
