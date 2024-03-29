@@ -8,13 +8,6 @@
 1. 可以读取本地的文件夹生成album
 2. 图片展示用类似Pinterest的瀑布流方式
 
-## v0.2
-
-
-1. 分拆了不同功能的python文件
-2. 添加了admin的页面，可以管理哪些文件夹展示，哪些不展示
-3. 添加了admin页面的认证，需要输入密码(设定方法见后面）
-
 # 设定
 
 在`global_variables.py`里设定路径：
@@ -72,3 +65,15 @@
     }
 ]
 ```
+
+## 版本更新记录
+
+### v1.01
+1. 新增了制作docker镜像需要的`dockerfile`和`requirements.txt`
+2. docker相关内容可以看博客：[自制Docker镜像Photoasis](https://blog.yakumo2.uk/2024/03/29/2024/20240329_DockerPhotoasis/)
+
+### v0.2
+
+1. 分拆了不同功能的python文件
+2. 添加了admin的页面，可以管理哪些文件夹展示，哪些不展示
+3. 添加了admin页面的认证，需要输入密码(设定方法见后面）
