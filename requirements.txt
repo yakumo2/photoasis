@@ -1,0 +1,4 @@
+Flask
+tqdm
+Pillow
+pillow_heif
