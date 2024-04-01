@@ -3,12 +3,49 @@
         "id": 0,
         "path": "0_default",
         "name": "default",
-        "display": false
+        "display": false,
+        "cover": "default"
+    },
+    {
+        "id": 2,
+        "path": "02_AnotherAlbum",
+        "name": "02_AnotherAlbum",
+        "display": true,
+        "cover": "02_AnotherAlbum/IMG_1861.jpeg"
     },
     {
         "id": 1,
         "path": "01_MyFirstAlbum",
         "name": "01_MyFirstAlbum",
-        "display": true
+        "display": true,
+        "cover": "01_MyFirstAlbum/IMG_1025.jpeg"
+    },
+    {
+        "id": 3,
+        "path": "03_MyFirstAlbum",
+        "name": "03_MyFirstAlbum",
+        "display": true,
+        "cover": "03_MyFirstAlbum/IMG_0375.jpeg"
+    },
+    {
+        "id": 4,
+        "path": "04_MyFirstAlbum",
+        "name": "04_MyFirstAlbum",
+        "display": true,
+        "cover": "04_MyFirstAlbum/IMG_0992.jpeg"
+    },
+    {
+        "id": 5,
+        "path": "05_AnotherAlbum",
+        "name": "05_AnotherAlbum",
+        "display": true,
+        "cover": "05_AnotherAlbum/IMG_1402.jpeg"
+    },
+    {
+        "id": 6,
+        "path": "06_AnotherAlbum",
+        "name": "06_AnotherAlbum",
+        "display": false,
+        "cover": "06_AnotherAlbum/IMG_4115.jpeg"
     }
 ]

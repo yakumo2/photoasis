@@ -61,12 +61,23 @@
         "id": 0, 
         "path": "0_default",
         "name": "default",
-        "display": false
+        "display": false,
+        "cover": "default"
     }
 ]
 ```
 
 ## 版本更新记录
+
+### v1.02
+
+1. 给`index.html`做了以下修改：
+- 添加了头部导航栏，添加admin的入口
+- 相册入口改为图片，读取相册json里的cover的值
+
+2. 修改了`index.py`，获取相册列表的时候获取排序后的列表，把cover信息传给`index.html`
+3. 修改了`folders.json`,加入`cover`
+4. 修改了`folder_action.py`, 创建相册列表的时候，从相册中随机找一张图片作为`cover`
 
 ### v1.01
 1. 新增了制作docker镜像需要的`dockerfile`和`requirements.txt`

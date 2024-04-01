@@ -12,9 +12,9 @@ index_bp = Blueprint('index_bp', __name__)
 def index():
 	print("index executed")
 	#albums = get_albums()
-	albums = folder_action.load_folders()
+	albums = folder_action.get_sorted_folders()
 	filtered_albums = [album for album in albums if album.get('display', True)]
-	return render_template('index.html', albums=filtered_albums)
+	return render_template('index.html', albums=filtered_albums, path=global_variables.path)
 
 # Helper function to get list of albums
 '''

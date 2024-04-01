@@ -1,6 +1,7 @@
 import json
 import re
 import os
+import random
 
 def get_sorted_folders():
     # 读取文件夹信息并排序
@@ -24,7 +25,18 @@ def list_folders_to_json(path, output_file):
             folder_id = extract_id(folder)
             # Check if folder_id already exists in existing_folders
             if not any(folder['id'] == folder_id for folder in existing_folders):
-                existing_folders.append({'id': folder_id, 'path': folder, 'name': folder, 'display': False})
+
+                # Find image files in the folder
+                image_files = [file for file in os.listdir(folder_path) if file.lower().endswith(('.png', '.jpg', '.jpeg'))]
+                if image_files:
+                    # Randomly select an image file
+                    random_image = random.choice(image_files)
+                    cover_url = f'{folder}/{random_image}'
+                else:
+                    cover_url = 'None'
+
+
+                existing_folders.append({'id': folder_id, 'path': folder, 'name': folder, 'display': False, 'cover':cover_url})
     with open(output_file, 'w') as f:
         json.dump(existing_folders, f, indent=4)  # 添加缩进
     print("Scanned folders")
@@ -47,7 +59,8 @@ def create_folders_json():
         "id": 0,
         "path": "0_default",
         "name": "default",
-        "display": False
+        "display": False,
+        "cover": "default"
     }]
     with open('folders.json', 'w') as f:
         json.dump(data, f, indent=4)
