@@ -7,7 +7,7 @@ import global_variables
 register_heif_opener()
 
 # 压缩图片并保存
-def compress_image(input_path, output_path, quality=60, max_size=400):
+def compress_image(input_path, output_path, quality=60, max_size=400, crop_to_square=False):
     try:
         # 如果输出文件已存在，则跳过压缩
         if os.path.exists(output_path):
@@ -32,8 +32,21 @@ def compress_image(input_path, output_path, quality=60, max_size=400):
             new_height = min(height, max_size)
             new_width = int(width * (new_height / height))
         
-        # 调整尺寸并保存
+        # 调整尺寸
         resized_image = image.resize((new_width, new_height), Image.LANCZOS)
+        
+        # 如果需要裁切成正方形
+        if crop_to_square:
+            # 计算裁切后的区域
+            left = (new_width - min(new_width, new_height)) / 2
+            top = (new_height - min(new_width, new_height)) / 2
+            right = (new_width + min(new_width, new_height)) / 2
+            bottom = (new_height + min(new_width, new_height)) / 2
+            
+            # 进行裁切
+            resized_image = resized_image.crop((left, top, right, bottom))
+        
+        # 保存图片
         resized_image.save(output_path, quality=quality)  # 设置压缩质量
         
         return True
@@ -45,6 +58,7 @@ def compress_image(input_path, output_path, quality=60, max_size=400):
 def compress_images_in_folder(input_folder, output_folder, high_quality=False):
     max_size = 800 if high_quality else 400
     max_quality = 100 if high_quality else 60
+    crop_to_square = False if high_quality else True
     
     for root, dirs, files in os.walk(input_folder):
         # 生成对应的输出文件夹结构
@@ -57,7 +71,7 @@ def compress_images_in_folder(input_folder, output_folder, high_quality=False):
             if file.lower().endswith(('.png', '.jpg', '.jpeg', '.heic')):
                 input_path = os.path.join(root, file)
                 output_path = os.path.join(output_root, file.split('.')[0] + '.jpeg')  # 添加 -small 后缀
-                compress_image(input_path, output_path, quality=max_quality, max_size=max_size)
+                compress_image(input_path, output_path, quality=max_quality, max_size=max_size, crop_to_square=crop_to_square)
 
 # 主函数
 if __name__ == "__main__":

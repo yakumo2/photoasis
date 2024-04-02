@@ -82,6 +82,10 @@
             .item {
                 margin-bottom: 0px; /* 图片间隙 */
             }
+            .lightbox-img {
+                max-width: 100%; /* 在较小的屏幕上，让图片填满屏幕宽度 */
+                max-height: auto; /* 自适应高度 */
+            }
         }
 
         /* Lightbox Styles */
@@ -106,12 +110,14 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            padding-bottom: 100px; /* 下方留白更高 */
+            padding-bottom: 0px; /* 下方留白更高 */
+            width: 80%; /* 让Lightbox内容宽度填满父元素 */
+            height: 80%; /* 让Lightbox内容高度填满父元素 */
         }
 
         .lightbox-img {
-            max-width: 90%;
-            max-height: 90%;
+            max-width: 100%;
+            max-height: 100%;
             border: 10px solid white; /* 添加白色边框 */
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* 添加阴影 */
         }

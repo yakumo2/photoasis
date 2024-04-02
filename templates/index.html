@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Albums</title>
     <style>
+        /* 设置链接样式 */
+        a {
+            color: white; /* 设置链接文字颜色为白色 */
+            text-decoration: none; /* 去除链接下划线 */
+        }
+
+        /* 设置点击过的链接样式 */
+        a:visited {
+            color: white; /* 设置点击过的链接文字颜色为白色 */
+        }
          /* 顶部导航条样式 */
         .navbar {
             position: fixed;
@@ -77,23 +87,33 @@
 <body>
     
      <div class="navbar">
-        <span>ALBUMS</span>
-        <a href="/admin">go Admin</a>
+        <span>全部相册</span>
+        <a href="/admin">管理</a>
     </div>
-    <div class="masonry">
-        
-            {% for album in albums %}
+<div class="masonry">
+    {% set columns = 3 %}
+    {% set rows = ((albums | length) / columns) | round(0, 'ceil') %}
+    {% for i in range(columns) %}
+        {% for j in range(rows | int) %}
+            {% set index = j * columns + i %}
+            {% if index < albums | length %}
+                {% set album = albums[index] %}
+                <div class="item">
+                    <a href="/album/{{ album['path'] }}">
+                        <img src="/{{ path }}/{{ album['cover'] }}" alt="{{ album['name'] }}">
+                        <div class="caption">{{ album['name'] }}</div>
+                    </a>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+</div>
 
-            <div class="item">
-                <a href="/album/{{ album['path'] }}">
-                    <img src="/{{ path }}/{{ album['cover'] }}" alt="{{ album['name'] }}">
-                    <div class="caption">{{ album['name'] }}</div>
-                </a>
-            </div>
 
-            
-            {% endfor %}
-        
-    </div>
+
+
+
+
+
 </body>
 </html>

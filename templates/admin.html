@@ -60,38 +60,61 @@
                 console.error('Error:', error.message);
             });
         }
+        function updateName(folderId, newName) {
+        // 发送POST请求到后端，更新name值
+            fetch('/admin/update_name', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    folderId: folderId,
+                    newName: newName
+                })
+            }).then(response => {
+                if (response.ok) {
+                    console.log('Name updated successfully');
+                } else {
+                    console.error('Failed to update name');
+                }
+            }).catch(error => {
+            console.error('Error:', error);
+            });
+        }
     </script>
 </head>
 <body>
-    <h1>Admin Panel</h1>
+    <h1>管理页面</h1>
 
     <form id="scan-form" method="POST">
         <button class="sort-btn" type="button" onclick="scanFolders()">扫描文件夹</button>
     </form>
-     <a href="/">Back to Album List_Hello_World</a>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Path</th>
-            <th>Name</th>
-            <th>Display</th>
-            <th>Action</th>
-        </tr>
-        {% for folder in folders %}
-        {% if folder['display'] %}
-        <tr style="background-color: limegreen;">
-        {% else %}
-        <tr>
-        {% endif %}
-            <td>{{ folder['id'] }}</td>
-            <td>{{ folder['path'] }}</td>
-            <td>{{ folder['name'] }}</td>
-            <td>{{ folder['display'] }}</td>
-            <td>
-                <button onclick="toggleDisplay('{{ folder['id'] }}')">Toggle Display</button>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
+     <a href="/">回到相册</a>
+  <table>
+    <tr>
+        <th>ID</th>
+        <th>Path</th>
+        <th>Name</th>
+        <th>Display</th>
+        <th>Action</th>
+    </tr>
+    {% for folder in folders %}
+    {% if folder['display'] %}
+    <tr style="background-color: limegreen;">
+    {% else %}
+    <tr>
+    {% endif %}
+        <td>{{ folder['id'] }}</td>
+        <td>{{ folder['path'] }}</td>
+        <td>
+            <input type="text" id="name_{{ folder['id'] }}" value="{{ folder['name'] }}" onchange="updateName('{{ folder['id'] }}', this.value)">
+        </td>
+        <td>{{ folder['display'] }}</td>
+        <td>
+            <button onclick="toggleDisplay('{{ folder['id'] }}')">Toggle Display</button>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
 </body>
 </html>

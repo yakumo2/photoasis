@@ -13,7 +13,7 @@ def album(album_name):
     page = int(request.args.get('page', 1))
     photos = get_photos(path, album_name)
     num_photos = len(photos)
-    per_page = 20
+    per_page = 40
     num_pages = (num_photos + per_page - 1) // per_page
     if page < 1 or page > num_pages:
         abort(404)

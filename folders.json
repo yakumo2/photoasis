@@ -9,42 +9,42 @@
     {
         "id": 3,
         "path": "03_MyFirstAlbum",
-        "name": "03_MyFirstAlbum",
+        "name": "\u51ac\u306e\u663c",
         "display": true,
         "cover": "03_MyFirstAlbum/IMG_1026.jpeg"
     },
     {
         "id": 4,
         "path": "04_MyFirstAlbum",
-        "name": "04_MyFirstAlbum",
+        "name": "\u79cb\u306e\u671d",
         "display": true,
         "cover": "04_MyFirstAlbum/IMG_0243.jpeg"
     },
     {
         "id": 2,
         "path": "02_AnotherAlbum",
-        "name": "02_AnotherAlbum",
+        "name": "\u306a\u3093\u3067\u3082\u3044\u3044",
         "display": true,
         "cover": "02_AnotherAlbum/IMG_1861.jpeg"
     },
     {
         "id": 5,
         "path": "05_AnotherAlbum",
-        "name": "05_AnotherAlbum",
+        "name": "\u590f\u306e\u591c",
         "display": true,
         "cover": "05_AnotherAlbum/IMG_1402.jpeg"
     },
     {
         "id": 6,
         "path": "06_AnotherAlbum",
-        "name": "06_AnotherAlbum",
+        "name": "\u6625\u306e\u65e5",
         "display": true,
         "cover": "06_AnotherAlbum/IMG_1861.jpeg"
     },
     {
         "id": 1,
         "path": "01_MyFirstAlbum",
-        "name": "01_MyFirstAlbum",
+        "name": "\u3084\u3063\u305f",
         "display": true,
         "cover": "01_MyFirstAlbum/IMG_0241.jpeg"
     }

@@ -71,7 +71,32 @@ def logout():
     session.pop('logged_in', None)
     return redirect(url_for('admin_bp.login'))
 
-
+# Route to update album names
+@admin_bp.route('/update_name', methods=['POST'])
+def update_name():
+    print("update names")
+    if request.method == 'POST':
+        data = request.json
+        folder_id = data.get('folderId')
+        new_name = data.get('newName')
+        # 在这里执行更新名称的逻辑，例如更新数据库等操作
+        print(folder_id+':'+new_name)
+        folders = folder_action.load_folders()
+        for folder in folders:
+            print("folder id", folder['id'])
+            print("looking for id",folder_id)
+            if str(folder['id']) == str(folder_id):
+                print("found id, name:", folder['name'])
+                folder['name'] = new_name
+                print("updated, new name:", folder['name']) 
+                folder_action.save_folders(folders)
+                break
+        
+        # 返回成功或失败的响应
+        return jsonify({'success': True}), 200
+    else:
+        print("post error")
+        return jsonify({'error': 'Method not allowed'}), 405
 
 
 
