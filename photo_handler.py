@@ -56,8 +56,8 @@ def compress_image(input_path, output_path, quality=60, max_size=400, crop_to_sq
 
 # 遍历文件夹中的图片并压缩保存
 def compress_images_in_folder(input_folder, output_folder, high_quality=False):
-    max_size = 800 if high_quality else 400
-    max_quality = 100 if high_quality else 60
+    max_size = 1000 if high_quality else 600
+    max_quality = 100 if high_quality else 100
     crop_to_square = False if high_quality else True
     
     for root, dirs, files in os.walk(input_folder):

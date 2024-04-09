@@ -47,5 +47,12 @@
         "name": "\u3084\u3063\u305f",
         "display": true,
         "cover": "01_MyFirstAlbum/IMG_0241.jpeg"
+    },
+    {
+        "id": 7,
+        "path": "07_202308_Xinjiang",
+        "name": "\u65b0\u7586",
+        "display": true,
+        "cover": "07_202308_Xinjiang/fd30afcda9976a377f74f0893e7694b5.jpeg"
     }
 ]

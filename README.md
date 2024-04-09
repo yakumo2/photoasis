@@ -67,7 +67,18 @@
 ]
 ```
 
+## 安装python虚拟环境
+
+```
+$ python3 -m venv /pyvevn
+$ /pyvevn/bin/python3
+$ /pyvevn/bin/pip
+```
+
 ## 版本更新记录
+
+### v1.04
+- 修改了`photo_handler.py`，尺寸大图片扩大到1000，小图片扩大到600，质量都调整到100.
 
 ### v1.03
 1. 修改了`index.html`，相册的排序从纵向排序变成了横向排序显示
